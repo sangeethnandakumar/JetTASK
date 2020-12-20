@@ -1,0 +1,7 @@
+Extensions/ExpressMicroPermissions/bin/
+Extensions/ExpressMicroPermissions/obj/
+JetTask.Benchmarks/obj/
+JetTask.UnitTests/obj/
+JetTask/bin/Debug/
+JetTask/obj/
+JetTask/.vs/
