@@ -1,6 +1,8 @@
+using ExpressMicroPermissions.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -24,6 +26,12 @@ namespace JetTask
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //Set connection string for MicroPermissions Store
+            services.AddDbContext<PermissionContext>(options =>
+            {
+                options.UseSqlServer(Configuration.GetConnectionString("JetTask"),
+                assembly => assembly.MigrationsAssembly(typeof(PermissionContext).Assembly.FullName));
+            });
             services.AddControllersWithViews();
             services.AddRazorPages().AddRazorRuntimeCompilation();
             services.AddMvc().AddRazorRuntimeCompilation();
