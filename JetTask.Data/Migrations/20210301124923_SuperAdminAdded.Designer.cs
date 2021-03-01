@@ -4,14 +4,16 @@ using JetTask.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace JetTask.Data.Migrations
 {
     [DbContext(typeof(JetTaskContext))]
-    partial class JetTaskContextModelSnapshot : ModelSnapshot
+    [Migration("20210301124923_SuperAdminAdded")]
+    partial class SuperAdminAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

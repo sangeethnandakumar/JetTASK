@@ -77,6 +77,7 @@ namespace JetTask
             services.AddSingleton<IProjectService, ProjectService>();
             services.AddSingleton<IClientService, ClientService>();
             services.AddSingleton<ISprintService, SprintService>();
+            services.AddSingleton<IPermissionService, PermissionService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
