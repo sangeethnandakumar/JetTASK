@@ -45,7 +45,7 @@ namespace JetTask.Service
 
         public Response<List<Permission>> GetAllPermissions()
         {
-            var result = MicroPermissions.GetAllPermisisons();
+            var result = MicroPermissions.GetAllPermissions();
             if (result != null)
             {
                 return new Response<List<Permission>>
@@ -89,42 +89,72 @@ namespace JetTask.Service
 
         public Response BindPermissionToUser(int userId, string permissionName)
         {
-            var result = MicroPermissions.BindPermissionToUser(userId, permissionName);
-            if (result)
+            var isUserSuperAdmin = authorityService.GetLoggedInUser().IsSuperAdmin;
+            if(isUserSuperAdmin)
             {
-                return new Response
+                var result = MicroPermissions.BindPermissionToUser(userId, permissionName);
+                if (result)
                 {
-                    IsSuccess = true,
-                    ResponseStatus = ResponseStatus.SUCCESS
-                };
+                    return new Response
+                    {
+                        IsSuccess = true,
+                        ResponseStatus = ResponseStatus.SUCCESS,
+                        Message = "Successfully binded permission to user"
+                    };
+                }
+                else
+                {
+                    return new Response
+                    {
+                        IsSuccess = false,
+                        ResponseStatus = ResponseStatus.ERROR,
+                        Message = "Failed to bind permission to user"
+                    };
+                }
             }
             else
             {
                 return new Response
                 {
                     IsSuccess = false,
-                    ResponseStatus = ResponseStatus.ERROR
+                    ResponseStatus = ResponseStatus.ERROR,
+                    Message = "You requires administrative rights to perform permission related operations"
                 };
             }
         }
 
         public Response UnBindPermissionFromUser(int userId, string permissionName)
         {
-            var result = MicroPermissions.UnBindPermissionFromUser(userId, permissionName);
-            if (result)
+            var isUserSuperAdmin = authorityService.GetLoggedInUser().IsSuperAdmin;
+            if (isUserSuperAdmin)
             {
-                return new Response
+                var result = MicroPermissions.UnBindPermissionFromUser(userId, permissionName);
+                if (result)
                 {
-                    IsSuccess = true,
-                    ResponseStatus = ResponseStatus.SUCCESS
-                };
+                    return new Response
+                    {
+                        IsSuccess = true,
+                        ResponseStatus = ResponseStatus.SUCCESS,
+                        Message = "Successfully unbinded permission from user"
+                    };
+                }
+                else
+                {
+                    return new Response
+                    {
+                        IsSuccess = false,
+                        ResponseStatus = ResponseStatus.ERROR,
+                        Message = "Failed to unbind permission from user"
+                    };
+                }
             }
             else
             {
                 return new Response
                 {
                     IsSuccess = false,
-                    ResponseStatus = ResponseStatus.ERROR
+                    ResponseStatus = ResponseStatus.ERROR,
+                    Message = "You requires administrative rights to perform permission related operations"
                 };
             }
         }

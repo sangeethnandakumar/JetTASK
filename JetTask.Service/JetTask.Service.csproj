@@ -9,7 +9,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\..\Invoices\Express-MicroPermissions-Library-master\ExpressMicroPermissions\ExpressMicroPermissions.csproj" />
+		<ProjectReference Include="..\..\ExpressMicropermissions\ExpressMicroPermissions\ExpressMicroPermissions.csproj" />
 		<ProjectReference Include="..\JetTask.Data\JetTask.Data.csproj" />
 		<ProjectReference Include="..\JetTask.Entities\JetTask.Entities.csproj" />
 	</ItemGroup>

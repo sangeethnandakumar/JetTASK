@@ -12,11 +12,11 @@ namespace JetTask.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class PermissionController : ControllerBase
+    public class PermissionsController : ControllerBase
     {
         private readonly IPermissionService permissionService;
 
-        public PermissionController(IPermissionService permissionService)
+        public PermissionsController(IPermissionService permissionService)
         {
             this.permissionService = permissionService;
         }
@@ -32,16 +32,16 @@ namespace JetTask.Controllers
         [HttpGet]
         [Route("{id}")]
         [Authorize]
-        public IActionResult Get(int userId)
+        public IActionResult Get(int id)
         {
-            var response = permissionService.GetPermissionsOfUser(userId);
+            var response = permissionService.GetPermissionsOfUser(id);
             return (response.IsSuccess) ? Ok(response) : BadRequest(response);
         }
 
         [HttpPost]
         [Route("BindPermission")]
         [Authorize]
-        public IActionResult BindPermission(int userId, string permissionName)
+        public IActionResult BindPermission([FromForm]int userId, [FromForm] string permissionName)
         {
             var response = permissionService.BindPermissionToUser(userId, permissionName);
             return (response.IsSuccess) ? Ok(response) : BadRequest(response);

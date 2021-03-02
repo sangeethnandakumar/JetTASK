@@ -47,7 +47,7 @@ namespace JetTask.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder builder)
         {
-            builder.UseSqlServer(@"Server=DESKTOP-QJ02OLT\SQLEXPRESS;Database=JetTask;Trusted_Connection=True;");
+            builder.UseSqlServer(@"Server=DESKTOP-OVVQ2AQ\SQLEXPRESS;Database=JetTask;Trusted_Connection=True;");
         }
 
         //protected override void OnConfiguring(DbContextOptionsBuilder builder)

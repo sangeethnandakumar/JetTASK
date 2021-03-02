@@ -6,6 +6,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\..\Invoices\Express-MicroPermissions-Library-master\ExpressMicroPermissions\ExpressMicroPermissions.csproj" />
+	  <ProjectReference Include="..\..\ExpressMicropermissions\ExpressMicroPermissions\ExpressMicroPermissions.csproj" />
 	</ItemGroup>
 </Project>

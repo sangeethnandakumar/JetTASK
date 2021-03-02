@@ -13,9 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JetTask.Service", "..\JetTa
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Extensions", "Extensions", "{B5CA5775-3B43-4FF9-86DE-C869770FF7FB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExpressMicroPermissions", "..\..\Invoices\Express-MicroPermissions-Library-master\ExpressMicroPermissions\ExpressMicroPermissions.csproj", "{6FB2C18B-70DB-4CB6-B5BD-41F3CFBBCAB6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PermissionSeeder", "..\PermissionSeeder\PermissionSeeder.csproj", "{E62A118E-22C9-4B11-8262-155184071586}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PermissionSeeder", "..\PermissionSeeder\PermissionSeeder.csproj", "{E62A118E-22C9-4B11-8262-155184071586}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExpressMicroPermissions", "..\..\ExpressMicropermissions\ExpressMicroPermissions\ExpressMicroPermissions.csproj", "{CA188CC4-9E94-4A63-A395-EE543C492566}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,21 +39,21 @@ Global
 		{A3004ABE-8D05-4B34-8048-764086F39F10}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A3004ABE-8D05-4B34-8048-764086F39F10}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A3004ABE-8D05-4B34-8048-764086F39F10}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6FB2C18B-70DB-4CB6-B5BD-41F3CFBBCAB6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6FB2C18B-70DB-4CB6-B5BD-41F3CFBBCAB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6FB2C18B-70DB-4CB6-B5BD-41F3CFBBCAB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6FB2C18B-70DB-4CB6-B5BD-41F3CFBBCAB6}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E62A118E-22C9-4B11-8262-155184071586}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E62A118E-22C9-4B11-8262-155184071586}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E62A118E-22C9-4B11-8262-155184071586}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E62A118E-22C9-4B11-8262-155184071586}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CA188CC4-9E94-4A63-A395-EE543C492566}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA188CC4-9E94-4A63-A395-EE543C492566}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA188CC4-9E94-4A63-A395-EE543C492566}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA188CC4-9E94-4A63-A395-EE543C492566}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{6FB2C18B-70DB-4CB6-B5BD-41F3CFBBCAB6} = {B5CA5775-3B43-4FF9-86DE-C869770FF7FB}
 		{E62A118E-22C9-4B11-8262-155184071586} = {B5CA5775-3B43-4FF9-86DE-C869770FF7FB}
+		{CA188CC4-9E94-4A63-A395-EE543C492566} = {B5CA5775-3B43-4FF9-86DE-C869770FF7FB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7279E51F-364E-4AA7-805F-22B80A0AF50F}

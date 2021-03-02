@@ -55,6 +55,7 @@ namespace JetTask.Service
                 var user = userService.GetUserByUsername(username);
                 if (user != null)
                 {
+                    var pass = BlowFishHashing.HashString("ammu@123", BlowFishHashing.GenerateSalt(15));
                     if (BlowFishHashing.Validate(password, user.Password))
                     {
                         return new Response<LoginResponse>
