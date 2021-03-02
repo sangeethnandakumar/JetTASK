@@ -16,8 +16,10 @@ namespace JetTask.Service
     public interface IPermissionService
     {
         Response<List<Permission>> GetAllPermissions();
+        Response<List<string>> GetAllPermissionGroups();
 
         Response<List<string>> GetPermissionsOfUser(int userId);
+        Response<List<string>> GetPermissionsFromPermissionGroup(string permissionGroupName);
 
         Response BindPermissionToUser(int userId, string permissionName);
 
@@ -98,8 +100,7 @@ namespace JetTask.Service
                     return new Response
                     {
                         IsSuccess = true,
-                        ResponseStatus = ResponseStatus.SUCCESS,
-                        Message = "Successfully binded permission to user"
+                        ResponseStatus = ResponseStatus.SUCCESS
                     };
                 }
                 else
@@ -118,7 +119,7 @@ namespace JetTask.Service
                 {
                     IsSuccess = false,
                     ResponseStatus = ResponseStatus.ERROR,
-                    Message = "You requires administrative rights to perform permission related operations"
+                    Message = "You require administrative rights to perform permission related operations"
                 };
             }
         }
@@ -134,8 +135,7 @@ namespace JetTask.Service
                     return new Response
                     {
                         IsSuccess = true,
-                        ResponseStatus = ResponseStatus.SUCCESS,
-                        Message = "Successfully unbinded permission from user"
+                        ResponseStatus = ResponseStatus.SUCCESS
                     };
                 }
                 else
@@ -154,49 +154,79 @@ namespace JetTask.Service
                 {
                     IsSuccess = false,
                     ResponseStatus = ResponseStatus.ERROR,
-                    Message = "You requires administrative rights to perform permission related operations"
+                    Message = "You require administrative rights to perform permission related operations"
                 };
             }
         }
 
         public Response AddPermissionGroup(string permissionGroupName)
         {
-            var result = MicroPermissions.AddPermissionGroup(permissionGroupName);
-            if (result)
+            var isUserSuperAdmin = authorityService.GetLoggedInUser().IsSuperAdmin;
+            if (isUserSuperAdmin)
             {
-                return new Response
+                var result = MicroPermissions.AddPermissionGroup(permissionGroupName);
+                if (result)
                 {
-                    IsSuccess = true,
-                    ResponseStatus = ResponseStatus.SUCCESS
-                };
+                    return new Response
+                    {
+                        IsSuccess = true,
+                        ResponseStatus = ResponseStatus.SUCCESS,
+                    };
+                }
+                else
+                {
+                    return new Response
+                    {
+                        IsSuccess = false,
+                        ResponseStatus = ResponseStatus.ERROR,
+                        Message = "Failed while creating new permission group",
+                        Info = new List<string> { "Check if permission group already exists" }
+                    };
+                }
             }
             else
             {
                 return new Response
                 {
                     IsSuccess = false,
-                    ResponseStatus = ResponseStatus.ERROR
+                    ResponseStatus = ResponseStatus.ERROR,
+                    Message = "You require administrative rights to perform permission related operations"
                 };
-            }
+            }          
         }
 
         public Response AddPermissionToPermissionGroup(string permissionGroupName, string permissionName)
         {
-            var result = MicroPermissions.AddPermissionToPermissionGroup(permissionGroupName, permissionName);
-            if (result)
+            var isUserSuperAdmin = authorityService.GetLoggedInUser().IsSuperAdmin;
+            if (isUserSuperAdmin)
             {
-                return new Response
+                var result = MicroPermissions.AddPermissionToPermissionGroup(permissionGroupName, permissionName);
+                if (result)
                 {
-                    IsSuccess = true,
-                    ResponseStatus = ResponseStatus.SUCCESS
-                };
+                    return new Response
+                    {
+                        IsSuccess = true,
+                        ResponseStatus = ResponseStatus.SUCCESS
+                    };
+                }
+                else
+                {
+                    return new Response
+                    {
+                        IsSuccess = false,
+                        ResponseStatus = ResponseStatus.ERROR,
+                        Message = "Failed while adding permission to permission group",
+                        Info = new List<string> { "Check if the permission group already exist", "Check if the permission already exists", "Check if the permission is already added to this group" }
+                    };
+                }
             }
             else
             {
                 return new Response
                 {
                     IsSuccess = false,
-                    ResponseStatus = ResponseStatus.ERROR
+                    ResponseStatus = ResponseStatus.ERROR,
+                    Message = "You require administrative rights to perform permission related operations"
                 };
             }
         }
@@ -224,21 +254,108 @@ namespace JetTask.Service
 
         public Response UnBindPermissionGroupFromUser(int userId, string permissionGroupName)
         {
-            var result = MicroPermissions.UnBindPermissionGroupFromUser(userId, permissionGroupName);
-            if (result)
+            var isUserSuperAdmin = authorityService.GetLoggedInUser().IsSuperAdmin;
+            if (isUserSuperAdmin)
             {
-                return new Response
+                var result = MicroPermissions.UnBindPermissionGroupFromUser(userId, permissionGroupName);
+                if (result)
                 {
-                    IsSuccess = true,
-                    ResponseStatus = ResponseStatus.SUCCESS
-                };
+                    return new Response
+                    {
+                        IsSuccess = true,
+                        ResponseStatus = ResponseStatus.SUCCESS
+                    };
+                }
+                else
+                {
+                    return new Response
+                    {
+                        IsSuccess = false,
+                        ResponseStatus = ResponseStatus.ERROR,
+                        Message = "Failed while unbinding permission group from user",
+                        Info = new List<string> { "Check if permission group exist" }
+                    };
+                }
             }
             else
             {
                 return new Response
                 {
                     IsSuccess = false,
-                    ResponseStatus = ResponseStatus.ERROR
+                    ResponseStatus = ResponseStatus.ERROR,
+                    Message = "You require administrative rights to perform permission related operations"
+                };
+            }
+        }
+
+        public Response<List<string>> GetAllPermissionGroups()
+        {
+            var isUserSuperAdmin = authorityService.GetLoggedInUser().IsSuperAdmin;
+            if (isUserSuperAdmin)
+            {
+                var result = MicroPermissions.GetAllPermissionGroups();
+                if (result != null)
+                {
+                    return new Response<List<string>>
+                    {
+                        IsSuccess = true,
+                        ResponseStatus = ResponseStatus.SUCCESS,
+                        Data = result
+                    };
+                }
+                else
+                {
+                    return new Response<List<string>>
+                    {
+                        IsSuccess = false,
+                        ResponseStatus = ResponseStatus.ERROR,
+                        Message = "Unable to retrive the list of permission groups"
+                    };
+                }
+            }
+            else
+            {
+                return new Response<List<string>>
+                {
+                    IsSuccess = false,
+                    ResponseStatus = ResponseStatus.ERROR,
+                    Message = "You require administrative rights to perform permission related operations"
+                };
+            }
+        }
+
+        public Response<List<string>> GetPermissionsFromPermissionGroup(string permissionGroupName)
+        {
+            var isUserSuperAdmin = authorityService.GetLoggedInUser().IsSuperAdmin;
+            if (isUserSuperAdmin)
+            {
+                var result = MicroPermissions.GetPermissionsFromPermissionGroup(permissionGroupName);
+                if (result != null)
+                {
+                    return new Response<List<string>>
+                    {
+                        IsSuccess = true,
+                        ResponseStatus = ResponseStatus.SUCCESS,
+                        Data = result
+                    };
+                }
+                else
+                {
+                    return new Response<List<string>>
+                    {
+                        IsSuccess = false,
+                        ResponseStatus = ResponseStatus.ERROR,
+                        Message = "Unable to retrive permissions from permission group"
+                    };
+                }
+            }
+            else
+            {
+                return new Response<List<string>>
+                {
+                    IsSuccess = false,
+                    ResponseStatus = ResponseStatus.ERROR,
+                    Message = "You require administrative rights to perform permission related operations"
                 };
             }
         }

@@ -38,6 +38,25 @@ namespace JetTask.Controllers
             return (response.IsSuccess) ? Ok(response) : BadRequest(response);
         }
 
+        [HttpGet]
+        [Route("Groups")]
+        [Authorize]
+        public IActionResult Groups()
+        {
+            var response = permissionService.GetAllPermissionGroups();
+            return (response.IsSuccess) ? Ok(response) : BadRequest(response);
+        }
+
+        [HttpGet]
+        [Route("Groups/{id}")]
+        [Authorize]
+        public IActionResult Groups(string id)
+        {
+            var response = permissionService.GetPermissionsFromPermissionGroup(id);
+            return (response.IsSuccess) ? Ok(response) : BadRequest(response);
+        }
+
+
         [HttpPost]
         [Route("BindPermission")]
         [Authorize]
@@ -70,14 +89,14 @@ namespace JetTask.Controllers
         [Authorize]
         public IActionResult UnBindPermissionGroup(int userId, string permissionName)
         {
-            var response = permissionService.UnBindPermissionFromUser(userId, permissionName);
+            var response = permissionService.UnBindPermissionGroupFromUser(userId, permissionName);
             return (response.IsSuccess) ? Ok(response) : BadRequest(response);
         }
 
         [HttpPost]
         [Route("AddGroup")]
         [Authorize]
-        public IActionResult AddGroup(string permissionGroupName)
+        public IActionResult AddGroup([FromForm]string permissionGroupName)
         {
             var response = permissionService.AddPermissionGroup(permissionGroupName);
             return (response.IsSuccess) ? Ok(response) : BadRequest(response);
@@ -86,7 +105,7 @@ namespace JetTask.Controllers
         [HttpPost]
         [Route("AddPermissionToGroup")]
         [Authorize]
-        public IActionResult AddPermissionToGroup(string permissionGroupName, string permissionName)
+        public IActionResult AddPermissionToGroup([FromForm]string permissionGroupName, [FromForm]string permissionName)
         {
             var response = permissionService.AddPermissionToPermissionGroup(permissionGroupName, permissionName);
             return (response.IsSuccess) ? Ok(response) : BadRequest(response);
